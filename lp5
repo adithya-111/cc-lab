@@ -1,0 +1,27 @@
+def generate_public(prime,base,private):
+    return pow(base,private,prime)
+
+def generate_shared(public,private,prime):
+    return pow(public,private,prime)
+
+prime=int(input("Enter a large prime no:"))
+base=int(input("Enter a base :"))
+
+alice_private=int(input("Alice, Enter your private key:"))
+alice_public=generate_public(prime,base,alice_private)
+print("Alice's public key:",alice_public)
+bob_private=int(input("Bob, Enter your private key:"))
+bob_public=generate_public(prime,base,bob_private)
+print("Bob's public key:",bob_public)
+
+alice_shared=generate_shared(bob_public,alice_private,prime)
+bob_shared=generate_shared(alice_public,bob_private,prime)
+
+
+print("Alice's shared secret key:",alice_shared)
+print("Bob's shared secret key:",bob_shared)
+
+if alice_shared==bob_shared:
+    print("Success! The shared key is:",bob_shared)
+else:
+    print("Error: Shared secret key does not match")
